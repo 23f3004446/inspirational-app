@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quote Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #333;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .quote-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .quote-text {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .quote-author {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #555;
+        }
+
+        .new-quote-button {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+        }
+
+        .new-quote-button:hover {
+            background-color: #feb47b;
+            transform: translateY(-2px);
+        }
+
+        .new-quote-button:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quote-card">
+        <div id="quote-content">
+            <p class="quote-text">"The best way to predict the future is to create it."</p>
+            <p class="quote-author">- Peter Drucker</p>
+        </div>
+        <button class="new-quote-button" id="newQuoteBtn">New Quote</button>
+    </div>
+
+    <script>
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+            { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "The mind is everything. What you think you become.", author: "Buddha" },
+            { text: "The best revenge is massive success.", author: "Frank Sinatra" },
+            { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+            { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" },
+            { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" }
+        ];
+
+        const quoteContent = document.getElementById('quote-content');
+        const newQuoteBtn = document.getElementById('newQuoteBtn');
+        const quoteCard = document.querySelector('.quote-card');
+
+        function displayNewQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quote = quotes[randomIndex];
+
+            // Apply fade-out animation to current content
+            quoteContent.style.opacity = '0';
+            quoteContent.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                quoteContent.innerHTML = `
+                    <p class="quote-text">${quote.text}</p>
+                    <p class="quote-author">- ${quote.author}</p>
+                `;
+                // Apply fade-in animation to new content
+                quoteContent.style.opacity = '1';
+                quoteContent.style.transform = 'translateY(0)';
+            }, 500); // Match animation duration
+        }
+
+        newQuoteBtn.addEventListener('click', displayNewQuote);
+
+        // Initial fade-in for the card
+        quoteCard.style.animation = 'fadeIn 1s ease-out forwards';
+        quoteCard.style.animationDelay = '0.5s'; // Slight delay for the initial load
+
+    </script>
+</body>
+</html>
